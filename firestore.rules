@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId} (matches request.auth.uid)
+    // Fields:
+    //   - uid: string (required, must match document ID)
+    //   - email: string (required, valid email)
+    //   - displayName: string (optional)
+    //   - scores: map (required, keys are module types, values are lists of scores)
+    //   - overallAdvice: string (optional)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid;
+    }
+
+    function uidNotModified() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == resource.data.uid;
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidScoreList(list) {
+      return list is list && list.size() <= 1000; // Prevent massive arrays
+    }
+
+    function isValidScoresMap(scores) {
+      return scores is map &&
+             (!('Leseverstehen' in scores) || isValidScoreList(scores['Leseverstehen'])) &&
+             (!('Hörverstehen' in scores) || isValidScoreList(scores['Hörverstehen'])) &&
+             (!('Sprachbausteine' in scores) || isValidScoreList(scores['Sprachbausteine'])) &&
+             (!('Schriftlicher Ausdruck' in scores) || isValidScoreList(scores['Schriftlicher Ausdruck'])) &&
+             (!('Mündlicher Ausdruck' in scores) || isValidScoreList(scores['Mündlicher Ausdruck'])) &&
+             (!('Grammatik' in scores) || isValidScoreList(scores['Grammatik']));
+    }
+
+    function isValidUser(data) {
+      return hasRequiredFields(['uid', 'email', 'scores']) &&
+             data.uid is string && data.uid.size() > 0 && data.uid.size() < 100 &&
+             isValidEmail(data.email) &&
+             (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 100)) &&
+             (!('overallAdvice' in data) || (data.overallAdvice is string && data.overallAdvice.size() <= 10000)) &&
+             isValidScoresMap(data.scores);
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && uidUnchanged();
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && uidNotModified();
+      allow delete: if isOwner(userId);
+    }
+  }
+}
