@@ -1,0 +1,5 @@
+{
+  "name": "Préparation Telc Deutsch B1",
+  "description": "Une application web interactive pour aider les apprenants francophones à se préparer à l'examen telc Deutsch B1, avec des exercices générés par l'IA, des corrections intelligentes et un suivi des progrès.",
+  "requestFramePermissions": []
+}
