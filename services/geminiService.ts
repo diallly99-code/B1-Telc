@@ -7,9 +7,10 @@ let aiInstance: GoogleGenAI | null = null;
 const ai = new Proxy({}, {
   get(target, prop) {
     if (!aiInstance) {
-      const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+      // Try to get the API key from Vite's import.meta.env first, then fallback to process.env
+      const apiKey = import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY;
       if (!apiKey) {
-        console.error("API_KEY environment variable not set. Please configure it in Vercel.");
+        console.error("API_KEY environment variable not set. Please configure VITE_GEMINI_API_KEY in Vercel.");
       }
       aiInstance = new GoogleGenAI({ apiKey: apiKey || 'missing_key' });
     }
