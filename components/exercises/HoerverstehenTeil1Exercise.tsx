@@ -196,7 +196,7 @@ const HoerverstehenTeil1Exercise: React.FC<HoerverstehenTeil1ExerciseProps> = ({
             }
             const context = audioContextRef.current;
             
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            const ai = new GoogleGenAI({ apiKey: import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY || 'missing_key' });
             
             let gender: 'female' | 'male';
             if (statement.includes('Der Sprecher')) {

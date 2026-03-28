@@ -137,7 +137,7 @@ const HoerverstehenTeil3Exercise: React.FC<HoerverstehenTeil3ExerciseProps> = ({
             }
             const context = audioContextRef.current;
             
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            const ai = new GoogleGenAI({ apiKey: import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY || 'missing_key' });
             const maleVoices = ['Kore', 'Orus', 'Charon'];
             const femaleVoices = ['Puck', 'Leda', 'Callirrhoe'];
             const voiceName = gender === 'female' 

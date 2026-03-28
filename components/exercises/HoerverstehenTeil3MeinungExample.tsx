@@ -188,7 +188,7 @@ const HoerverstehenTeil3MeinungExample: React.FC<{ onBack: () => void; }> = ({ o
             }
             const context = audioContextRef.current;
             
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            const ai = new GoogleGenAI({ apiKey: import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY || 'missing_key' });
     
              const speakerToVoiceMap: Record<string, string> = {
                 'Sprecherin': 'Puck',
@@ -261,7 +261,7 @@ const HoerverstehenTeil3MeinungExample: React.FC<{ onBack: () => void; }> = ({ o
             const voiceName = speakerToVoiceMap[speakerName] || 'Puck';
 
 
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            const ai = new GoogleGenAI({ apiKey: import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY || 'missing_key' });
             const response = await ai.models.generateContent({
                 model: "gemini-2.5-flash-preview-tts",
                 contents: [{ parts: [{ text }] }],

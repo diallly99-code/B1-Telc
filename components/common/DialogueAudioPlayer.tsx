@@ -74,7 +74,7 @@ const DialogueAudioPlayer: React.FC<DialogueAudioPlayerProps> = ({ dialogue }) =
         }
         const context = audioContextRef.current;
         
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: import.meta.env?.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY || 'missing_key' });
         
         const speakerVoiceConfigs = [
             { speaker: 'A', voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Puck' } } }, // User (Female voice)

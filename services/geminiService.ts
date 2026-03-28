@@ -4,7 +4,7 @@ import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { ModuleType, SprachbausteineExerciseData, SchriftlicherAusdruckExerciseData, HoerverstehenExerciseData, Feedback, UserProfile, LeseverstehenExerciseData, LeseverstehenMiniExercise, SprachbausteineTeil2ExerciseData, LeseverstehenTeil2ExerciseData, LeseverstehenTeil2ExampleData, LeseverstehenTeil3ExerciseData, LeseverstehenTeil3ExampleData, PresentationAnswers, ChatMessage, MuendlicherAusdruckTeil2UserInput, MuendlicherAusdruckTeil2Character, MuendlicherAusdruckTeil2Thema, MuendlicherAusdruckTeil3Data, MuendlicherAusdruckTeil3Feedback, MuendlicherAusdruckTeil3ShortHelp, MuendlicherAusdruckTeil3PlanungsThema, PlanungsHilfe, GuidingPointFeedback, LinguisticHelpData, MicroExerciseType, MicroExerciseData, DetailedCorrection, MicroCorrection, HoerverstehenTeil1Question, HoerverstehenTeil2ExerciseData, HoerverstehenTeil2ShortExerciseData, HoerverstehenTeil3ExerciseData, HoerverstehenTeil3MeinungExerciseData, HoerverstehenTeil2DialogueTurn, GrammatikPunkt, GrammatikExerciseData } from '../types';
 
 let aiInstance: GoogleGenAI | null = null;
-const ai = new Proxy({}, {
+export const ai = new Proxy({}, {
   get(target, prop) {
     if (!aiInstance) {
       // Try to get the API key from Vite's import.meta.env first, then fallback to process.env
