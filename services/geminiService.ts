@@ -3,11 +3,19 @@
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { ModuleType, SprachbausteineExerciseData, SchriftlicherAusdruckExerciseData, HoerverstehenExerciseData, Feedback, UserProfile, LeseverstehenExerciseData, LeseverstehenMiniExercise, SprachbausteineTeil2ExerciseData, LeseverstehenTeil2ExerciseData, LeseverstehenTeil2ExampleData, LeseverstehenTeil3ExerciseData, LeseverstehenTeil3ExampleData, PresentationAnswers, ChatMessage, MuendlicherAusdruckTeil2UserInput, MuendlicherAusdruckTeil2Character, MuendlicherAusdruckTeil2Thema, MuendlicherAusdruckTeil3Data, MuendlicherAusdruckTeil3Feedback, MuendlicherAusdruckTeil3ShortHelp, MuendlicherAusdruckTeil3PlanungsThema, PlanungsHilfe, GuidingPointFeedback, LinguisticHelpData, MicroExerciseType, MicroExerciseData, DetailedCorrection, MicroCorrection, HoerverstehenTeil1Question, HoerverstehenTeil2ExerciseData, HoerverstehenTeil2ShortExerciseData, HoerverstehenTeil3ExerciseData, HoerverstehenTeil3MeinungExerciseData, HoerverstehenTeil2DialogueTurn, GrammatikPunkt, GrammatikExerciseData } from '../types';
 
-if (!process.env.API_KEY) {
-  throw new Error("API_KEY environment variable not set");
-}
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+const ai = new Proxy({}, {
+  get(target, prop) {
+    if (!aiInstance) {
+      const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        console.error("API_KEY environment variable not set. Please configure it in Vercel.");
+      }
+      aiInstance = new GoogleGenAI({ apiKey: apiKey || 'missing_key' });
+    }
+    return (aiInstance as any)[prop];
+  }
+}) as GoogleGenAI;
 
 const model = 'gemini-2.5-flash';
 
