@@ -25,8 +25,18 @@ export interface Score {
 }
 
 export interface UserProfile {
+  uid: string;
+  email: string;
+  displayName?: string;
   scores: Record<ModuleType, Score[]>;
   overallAdvice: string;
+  hasAccess?: boolean;
+}
+
+export interface AccessCode {
+  code: string;
+  isActive: boolean;
+  usedBy?: string;
 }
 
 // Exercise specific types

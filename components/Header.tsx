@@ -2,16 +2,13 @@
 import React from 'react';
 import UserIcon from './icons/UserIcon';
 import HomeIcon from './icons/HomeIcon';
-import { User } from 'firebase/auth';
 
 interface HeaderProps {
     onHomeClick: () => void;
     onProfileClick: () => void;
-    onLogoutClick: () => void;
-    user: User | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick, onLogoutClick, user }) => {
+const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick }) => {
   return (
     <header className="bg-white dark:bg-slate-800 shadow-md">
       <div className="container mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
@@ -29,20 +26,6 @@ const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick, onLogoutCl
         >
           Préparation interactive – telc Deutsch B1
         </h1>
-        {user && (
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:block text-sm text-slate-600 dark:text-slate-300">
-              {user.displayName || user.email}
-            </div>
-            <button 
-              onClick={onLogoutClick}
-              className="text-sm text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors"
-              title="Se déconnecter"
-            >
-              <i className="fa-solid fa-arrow-right-from-bracket"></i>
-            </button>
-          </div>
-        )}
       </div>
     </header>
   );
