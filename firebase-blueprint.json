@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and scores",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "User ID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "scores": {
+          "type": "object",
+          "description": "Scores per module"
+        },
+        "overallAdvice": {
+          "type": "string",
+          "description": "Overall advice for the user"
+        },
+        "hasAccess": {
+          "type": "boolean",
+          "description": "Whether the user has access to the app"
+        },
+        "role": {
+          "type": "string",
+          "description": "User role (e.g., admin, user)"
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "AccessCode": {
+      "title": "AccessCode",
+      "description": "Access code for the app",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The access code string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Whether the code is active"
+        },
+        "usedBy": {
+          "type": "string",
+          "description": "The user ID who used the code"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the code was created"
+        }
+      },
+      "required": ["code", "isActive"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Stores user profiles"
+    },
+    "/accessCodes/{codeId}": {
+      "schema": {
+        "$ref": "#/entities/AccessCode"
+      },
+      "description": "Stores access codes"
+    }
+  }
+}
