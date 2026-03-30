@@ -8,10 +8,12 @@ interface HeaderProps {
     onHomeClick: () => void;
     onProfileClick: () => void;
     onLogoutClick: () => void;
+    onAdminClick?: () => void;
+    isAdmin?: boolean;
     user: User | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick, onLogoutClick, user }) => {
+const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick, onLogoutClick, onAdminClick, isAdmin, user }) => {
   return (
     <header className="bg-white dark:bg-slate-800 shadow-md">
       <div className="container mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
@@ -22,6 +24,11 @@ const Header: React.FC<HeaderProps> = ({ onHomeClick, onProfileClick, onLogoutCl
             <button onClick={onProfileClick} className="text-slate-600 dark:text-slate-300 hover:text-purple-500 dark:hover:text-purple-400 transition-colors" title="Mon Profil">
                 <UserIcon className="w-6 h-6" />
             </button>
+            {isAdmin && onAdminClick && (
+              <button onClick={onAdminClick} className="text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors" title="Administration">
+                  <i className="fa-solid fa-shield-halved text-xl"></i>
+              </button>
+            )}
         </div>
         <h1 
             className="text-xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500 cursor-pointer text-center flex-1 mx-4"

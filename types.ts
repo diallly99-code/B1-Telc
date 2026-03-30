@@ -31,12 +31,14 @@ export interface UserProfile {
   scores: Record<ModuleType, Score[]>;
   overallAdvice: string;
   hasAccess?: boolean;
+  role?: string;
 }
 
 export interface AccessCode {
   code: string;
   isActive: boolean;
   usedBy?: string;
+  isUniversal?: boolean;
 }
 
 // Exercise specific types
