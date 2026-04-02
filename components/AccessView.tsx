@@ -78,12 +78,15 @@ const AccessView: React.FC<AccessViewProps> = ({ profile, onLogout }) => {
             </h2>
             <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-6">
               <span className="text-slate-500">Prix normal</span>
-              <span className="text-2xl font-bold text-[#16a34a]">15 € / mois</span>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-[#16a34a]">29,99€ / mois</div>
+                <div className="text-sm font-medium text-slate-500 mt-1">Ou bien 100€ à vie</div>
+              </div>
             </div>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-slate-600 text-sm">
                 <i className="fa-solid fa-check text-green-500 bg-green-100 rounded-full p-1 text-xs"></i> 
-                <span>1 mois d’accès complet</span>
+                <span>Accès complet (mensuel ou à vie)</span>
               </li>
               <li className="flex items-center gap-3 text-slate-600 text-sm">
                 <i className="fa-solid fa-check text-green-500 bg-green-100 rounded-full p-1 text-xs"></i> 
@@ -107,7 +110,7 @@ const AccessView: React.FC<AccessViewProps> = ({ profile, onLogout }) => {
               <div className="flex gap-4">
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">1</div>
                 <div>
-                  <h3 className="font-bold text-slate-800 text-sm">Déposez 15 €</h3>
+                  <h3 className="font-bold text-slate-800 text-sm">Déposez 29,99€ ou 100€</h3>
                   <p className="text-xs text-slate-500 mt-1">Au numéro Orange Money :</p>
                   <p className="font-bold text-slate-800 mt-1 text-base">00224627426386</p>
                   <p className="text-xs text-slate-500">(Amadou Djarougha Diallo)</p>
