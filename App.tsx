@@ -150,11 +150,22 @@ const App: React.FC = () => {
       <div className="min-h-screen flex flex-col items-center py-12 bg-emerald-50 dark:bg-slate-900 p-4 md:p-8 font-sans">
         <div className="max-w-6xl w-full bg-white dark:bg-slate-800 rounded-[2rem] shadow-2xl p-8 lg:p-12 flex flex-col items-center">
           
-          <div className="text-center mb-12 w-full max-w-3xl">
-            <h1 className="text-3xl lg:text-5xl font-extrabold text-slate-800 dark:text-white mb-6 leading-tight">
-              Prépare ton examen <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">telc Deutsch B1</span> efficacement
-            </h1>
+          <div className="text-center mb-12 w-full max-w-4xl">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 mb-6">
+              <h1 className="text-3xl lg:text-5xl font-extrabold text-slate-800 dark:text-white leading-tight m-0">
+                Prépare ton examen <br className="hidden sm:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">telc Deutsch B1</span> efficacement
+              </h1>
+              <a 
+                href="https://youtu.be/a2Nwux9ENpA" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-3 px-6 rounded-2xl transition-transform hover:scale-105 shadow-lg shadow-red-500/30 shrink-0"
+                title="Vidéo de présentation"
+              >
+                <i className="fa-brands fa-youtube text-2xl"></i> Vidéo
+              </a>
+            </div>
             <p className="text-lg text-slate-600 dark:text-slate-300">
               Maîtrise toutes les compétences de l’examen avec des exercices interactifs et des explications claires.
             </p>
